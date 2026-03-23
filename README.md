@@ -1,5 +1,9 @@
 Patterns:
 * Factory Pattern: Create cell objects to inject into groups and group objects to inject into the board.
-* Builder Pattern: To build the board according to size and/or group-type specifications
-* Strategy Pattern: To allow the game object to either look at a horizontal line group, vertical line group, or box group.
-* Observer Pattern: Observes the player choices to display a changed board each time.
+* Builder Pattern: To build the board according to size and/or group-type specifications. In SudokuBoard class.
+* Strategy Pattern: To allow the game object to either look at a horizontal line group, vertical line group, or box group. To be implemented in the SudokuGame class.
+* Observer Pattern: Observes the player choices to display a changed board each time. Also, to be an interface for the SudokuGame class.
+
+Core OO Principles:
+* Polymorphism: This was done by overloading setCells method in the BoxGroup as for the LineGroup and IGroup interface it was simpler to pass in an array while in the BoxGroup we passed in a 2D matrix.
+* Dependency Injection: See SudokuGame, we use constructor injection to pass the SudokuBoard into the game. Also see SudokuBoard getBuilder() we pass the GroupsFactory and CellFactory in.
