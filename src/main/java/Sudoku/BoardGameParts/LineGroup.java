@@ -1,5 +1,6 @@
 package Sudoku.BoardGameParts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LineGroup implements IGroup {
@@ -17,5 +18,10 @@ public class LineGroup implements IGroup {
 
     public void setCells(List<Cell> cells){
         this.cells = cells;
+    }
+
+    public List<Cell> getCells(){
+        List<Cell> copy = new ArrayList<>(cells);
+        return copy;
     }
 }

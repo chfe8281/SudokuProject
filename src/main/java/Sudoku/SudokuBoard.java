@@ -117,6 +117,7 @@ public class SudokuBoard {
                     if(this.boxGroups.get(boxIndex) instanceof BoxGroup b){
                         b.setCells(box);
                     }
+                    boxIndex++;
                 }
             }
         }

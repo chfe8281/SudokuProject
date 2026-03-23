@@ -1,5 +1,6 @@
 package Sudoku.BoardGameParts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
 
@@ -31,4 +32,15 @@ public class BoxGroup implements IGroup {
     }
 
     public void setCells(List<Cell> cells){}
+
+
+    public List<Cell> getCells(){
+        List<Cell> cellList = new ArrayList<>();
+        for(int i = 0; i < cells.length; i++){
+            for(int j = 0; j < cells[i].length; j++){
+                cellList.add(cells[i][j]);
+            }
+        }
+        return cellList;
+    }
 }

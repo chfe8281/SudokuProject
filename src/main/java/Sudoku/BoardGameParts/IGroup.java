@@ -8,6 +8,8 @@ public interface IGroup {
 
     List<Integer> repeatedValues();
 
+    List<Cell> getCells();
+
 
 
 }
