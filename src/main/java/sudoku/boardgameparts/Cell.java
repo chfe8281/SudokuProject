@@ -1,4 +1,4 @@
-package Sudoku.BoardGameParts;
+package sudoku.boardgameparts;
 
 public class Cell {
     private int value;

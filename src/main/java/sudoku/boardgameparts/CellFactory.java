@@ -1,7 +1,4 @@
-package Sudoku.BoardGameParts;
-
-import java.util.ArrayList;
-import java.util.List;
+package sudoku.boardgameparts;
 
 public class CellFactory {
 

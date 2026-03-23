@@ -1,10 +1,11 @@
-package BoardTesting;
-import Sudoku.BoardGameParts.Cell;
-import Sudoku.BoardGameParts.CellFactory;
-import Sudoku.BoardGameParts.GroupsFactory;
-import Sudoku.BoardGameParts.IGroup;
-import Sudoku.SudokuBoard;
+package boardtesting;
+
 import org.junit.jupiter.api.Test;
+import sudoku.SudokuBoard;
+import sudoku.boardgameparts.CellFactory;
+import sudoku.boardgameparts.Cell;
+import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.IGroup;
 
 import static org.junit.jupiter.api.Assertions.*;
 

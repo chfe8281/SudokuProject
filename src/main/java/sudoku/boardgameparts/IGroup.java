@@ -1,4 +1,4 @@
-package Sudoku.BoardGameParts;
+package sudoku.boardgameparts;
 
 import java.util.List;
 

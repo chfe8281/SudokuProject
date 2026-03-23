@@ -1,6 +1,6 @@
-package Sudoku;
+package sudoku;
 
-import Sudoku.BoardGameParts.*;
+import sudoku.boardgameparts.*;
 
 import java.util.ArrayList;
 import java.util.List;
