@@ -1,6 +1,7 @@
 package boardtesting;
 
 import org.junit.jupiter.api.Test;
+import sudoku.GeneratorFactory;
 import sudoku.SudokuBoard;
 import sudoku.SudokuGenerator;
 import sudoku.boardgameparts.CellFactory;
@@ -13,7 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SudokuBoardTest {
     private final CellFactory cellFactory = new CellFactory();
     private final GroupsFactory groupsFactory = new GroupsFactory();
+    private final GeneratorFactory generatorFactory = new GeneratorFactory();
     private final int BOARD_SIZE = 9;
+    private final int STANDARD_BLANKS = 40;
 
     @Test
     public void testBoardSizes(){
@@ -108,7 +111,7 @@ public class SudokuBoardTest {
 
     @Test
     public void testTargetAndPlayerBoards(){
-        SudokuGenerator generator = new SudokuGenerator(BOARD_SIZE);
+        SudokuGenerator generator = generatorFactory.createStandardGenerator();
         int[][] solution = generator.generateSolution();
         SudokuBoard targetBoard = SudokuBoard
                 .getBuilder(cellFactory, groupsFactory)
@@ -125,7 +128,7 @@ public class SudokuBoardTest {
                 .getBuilder(cellFactory, groupsFactory)
                 .setSize(9)
                 .setCells()
-                .withPuzzle(solution, 40)
+                .withPuzzle(solution, STANDARD_BLANKS)
                 .createLineGroups()
                 .createBoxGroups()
                 .createBoard()
