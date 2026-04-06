@@ -2,6 +2,7 @@ package boardtesting;
 
 import org.junit.jupiter.api.Test;
 import sudoku.SudokuBoard;
+import sudoku.SudokuGenerator;
 import sudoku.boardgameparts.CellFactory;
 import sudoku.boardgameparts.Cell;
 import sudoku.boardgameparts.GroupsFactory;
@@ -102,5 +103,46 @@ public class SudokuBoardTest {
         }
 
         assertEquals(3, occurrences);
+    }
+
+
+    @Test
+    public void testTargetAndPlayerBoards(){
+        SudokuGenerator generator = new SudokuGenerator(BOARD_SIZE);
+        int[][] solution = generator.generateSolution();
+        SudokuBoard targetBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(BOARD_SIZE)
+                .setCells()
+                .withSolution(solution)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("TARGET BOARD\n");
+        targetBoard.printBoard();
+        SudokuBoard playerBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(9)
+                .setCells()
+                .withPuzzle(solution, 40)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("PLAYER BOARD\n");
+        playerBoard.printBoard();
+
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                int playerVal = playerBoard.getCellValue(i, j);
+                int targetVal = targetBoard.getCellValue(i, j);
+
+                if (playerVal != 0) {
+                    assertEquals(targetVal, playerVal,
+                            "Mismatch at (" + i + "," + j + ")");
+                }
+            }
+        }
     }
 }

@@ -1,13 +1,14 @@
 package sudoku;
 
 public class SudokuGame {
-    private SudokuBoard board;
+    private SudokuBoard targetBoard;
+    private SudokuBoard playerBoard;
 
     public SudokuGame(SudokuBoard board) {
-        this.board = board;
+        this.targetBoard = board;
     }
 
     public SudokuBoard getBoard() {
-        return board;
+        return targetBoard;
     }
 }

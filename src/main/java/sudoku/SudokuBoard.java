@@ -4,16 +4,62 @@ import sudoku.boardgameparts.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class SudokuBoard {
     private List<IGroup> horizontalLineGroups = new ArrayList<>();
     private List<IGroup> verticalLineGroups = new ArrayList<>();
     private List<IGroup> boxGroups = new ArrayList<>();
+    private Cell[][] cells;
+    private int boardSize;
 
-    private SudokuBoard(List<IGroup> boxGroups, List<IGroup> verticalLineGroups, List<IGroup> horizontalLineGroups){
+    private SudokuBoard(List<IGroup> boxGroups, List<IGroup> verticalLineGroups, List<IGroup> horizontalLineGroups, Cell[][] cells, int size){
         this.horizontalLineGroups = horizontalLineGroups;
         this.boxGroups = boxGroups;
         this.verticalLineGroups = verticalLineGroups;
+        this.cells = cells;
+        this.boardSize = size;
+    }
+
+    public boolean isFilled(){
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(cells[i][j].getValue()== 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void printBoard(){
+
+        for (int i = 0; i < boardSize; i++) {
+            if (i % Math.sqrt(boardSize) == 0) {
+                System.out.println("-------------------------");
+            }
+
+            for (int j = 0; j < boardSize; j++) {
+                if (j % Math.sqrt(boardSize) == 0) System.out.print("| ");
+
+                int val = getCellValue(i, j);
+                System.out.print(val == 0 ? ". " : val + " ");
+            }
+            System.out.println("|");
+        }
+        System.out.println("-------------------------");
+    }
+
+    public void setCellValue(int row, int col, int value) {
+        cells[row][col].setValue(value);
+    }
+
+    public int getCellValue(int row, int col) {
+        return cells[row][col].getValue();
+    }
+
+    public int getSize() {
+        return boardSize;
     }
 
     public List<IGroup> getHorizontalLineGroups(){
@@ -40,6 +86,7 @@ public class SudokuBoard {
         private List<IGroup> boxGroups = new ArrayList<>();
         private int boardSize;
         private Cell[][] cells;
+        Random rand = new Random();
 
 
         private CellFactory cellFactory;
@@ -134,7 +181,33 @@ public class SudokuBoard {
         }
 
         public SudokuBoardBuilder createBoard(){
-            this.currentBoard = new SudokuBoard(this.boxGroups, this.verticalLineGroups, this.horizontalLineGroups);
+            this.currentBoard = new SudokuBoard(this.boxGroups, this.verticalLineGroups, this.horizontalLineGroups, this.cells, this.boardSize);
+            return this;
+        }
+
+        public SudokuBoardBuilder withSolution(int[][] solution){
+            for(int i = 0; i < boardSize; i++){
+                for(int j = 0; j < boardSize; j++){
+                    cells[i][j].setValue(solution[i][j]);
+                    cells[i][j].setFixed(true);
+                }
+            }
+            return this;
+        }
+
+        public SudokuBoardBuilder withPuzzle(int[][] solution, int blanks){
+            withSolution(solution);
+
+            while(blanks > 0){
+                int r = rand.nextInt(boardSize);
+                int c = rand.nextInt(boardSize);
+
+                if(cells[r][c].getValue() != 0){
+                    cells[r][c].setValue(0);
+                    cells[r][c].setFixed(false);
+                    blanks--;
+                }
+            }
             return this;
         }
 
