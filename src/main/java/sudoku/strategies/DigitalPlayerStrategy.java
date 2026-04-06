@@ -3,30 +3,39 @@ package sudoku.strategies;
 import sudoku.SudokuBoard;
 import sudoku.commands.CommandFactory;
 import sudoku.commands.ICommand;
+import sudoku.commands.MoveCommand;
 
 public class DigitalPlayerStrategy implements IPlayerStrategy{
     // fill first empty cell with valid number with backtracking
     CommandFactory commandFactory;
+    //ICommand lastMove;
     public DigitalPlayerStrategy(CommandFactory commandFactory){
         this.commandFactory = commandFactory;
     }
-    public ICommand selectMove(SudokuBoard playerBoard){
+    public ICommand selectMove(SudokuBoard playerBoard, SudokuBoard targetBoard){
+        SudokuBoard solverBoard;
         for(int row = 0; row < playerBoard.getSize(); row++){
             for(int col = 0; col < playerBoard.getSize(); col++){
                 if (playerBoard.getCellValue(row, col) == 0) { // empty
-                    int number = findValidNumber(playerBoard, row, col);
+                    int number = findValidNumber(playerBoard, targetBoard, row, col);
                     if (number != 0) {
                         ICommand move = commandFactory.createMoveCommand(playerBoard, row, col, number);
-                        move.execute();
-                        if(canSolve(playerBoard)){
-                            move.undo();
+                        /*move.execute();
+                        solverBoard = playerBoard;
+                        if(canSolve(solverBoard)){
                             return move;
                         } else {
                             move.undo();
-                        }
+                        }*/
+                        return move;
                         //playerBoard.setCellValue(row, col, number);
                         //System.out.println("Digital player placed " + number + " at (" + row + "," + col + ")");
                         // return;
+                    }
+                    else{
+                        System.out.println("Couldn't find a move");
+                        return null;
+
                     }
                 }
             }
@@ -34,10 +43,14 @@ public class DigitalPlayerStrategy implements IPlayerStrategy{
         return null;
     }
 
-    private int findValidNumber(SudokuBoard playerBoard, int row, int col){
+    private int findValidNumber(SudokuBoard playerBoard, SudokuBoard targetBoard, int row, int col){
         for (int num = 1; num <= playerBoard.getSize(); num++) {
             System.out.println("Trying " + num + " at (" + row + "," + col + ")");
-            if (playerBoard.isValidMove(row, col, num)) return num;
+            if (playerBoard.isValidMove(row, col, num) && (num == targetBoard.getCellValue(row, col))){
+                System.out.println(num);
+                return num;
+            }
+            System.out.println("NOT VALID");
         }
         return 0;
     }

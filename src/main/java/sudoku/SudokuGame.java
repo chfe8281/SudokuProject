@@ -34,7 +34,7 @@ public class SudokuGame {
     }
 
     public boolean playerMakeMove() {
-        ICommand command = playerStrategy.selectMove(playerBoard);
+        ICommand command = playerStrategy.selectMove(playerBoard, targetBoard);
         if (command == null) {
             System.out.println("No moves available, stopping game.");
             return false;

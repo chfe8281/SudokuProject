@@ -4,5 +4,5 @@ import sudoku.SudokuBoard;
 import sudoku.commands.ICommand;
 
 public interface IPlayerStrategy {
-    ICommand selectMove(SudokuBoard playerBoard);
+    ICommand selectMove(SudokuBoard playerBoard, SudokuBoard targetBoard);
 }
