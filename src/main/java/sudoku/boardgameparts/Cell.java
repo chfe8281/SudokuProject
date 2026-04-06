@@ -16,6 +16,7 @@ public class Cell {
         this.isFixed = fixed;
     }
 
+    public boolean isFixed(){return isFixed;}
     public void setValue(int newValue){ this.value = newValue; }
 
     public int getValue(){ return this.value; }

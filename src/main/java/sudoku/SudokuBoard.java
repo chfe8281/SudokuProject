@@ -12,6 +12,7 @@ public class SudokuBoard {
     private List<IGroup> boxGroups = new ArrayList<>();
     private Cell[][] cells;
     private int boardSize;
+    private int boxSize;
 
     private SudokuBoard(List<IGroup> boxGroups, List<IGroup> verticalLineGroups, List<IGroup> horizontalLineGroups, Cell[][] cells, int size){
         this.horizontalLineGroups = horizontalLineGroups;
@@ -19,12 +20,25 @@ public class SudokuBoard {
         this.verticalLineGroups = verticalLineGroups;
         this.cells = cells;
         this.boardSize = size;
+        this.boxSize = (int) Math.sqrt(boardSize);
     }
 
     public boolean isFilled(){
         for(int i = 0; i < boardSize; i++){
             for(int j = 0; j < boardSize; j++){
                 if(cells[i][j].getValue()== 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
+    public boolean equals(SudokuBoard comparedBoard){
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(cells[i][j].getValue() != comparedBoard.getCellValue(i, j)){
                     return false;
                 }
             }
@@ -56,6 +70,38 @@ public class SudokuBoard {
 
     public int getCellValue(int row, int col) {
         return cells[row][col].getValue();
+    }
+
+    public boolean isFixed(int row, int col){return cells[row][col].isFixed();}
+
+    public boolean isValidMove(int row, int col, int input){
+        if (row < 0 || row >= boardSize || col < 0 || col >= boardSize || input < 1 || input > boardSize) {
+            System.out.println("OUT OUT BOUNDS");
+            return false;
+        }
+        if (isFixed(row, col)) {
+            System.out.println("FIXED CELL");
+            return false;
+        }
+        for(int i = 0; i < boardSize; i++){
+            if(cells[row][i].getValue() == input || cells[i][col].getValue() == input){
+                System.out.println("ALREADY IN LINE GROUP");
+                return false;
+            }
+        }
+
+        int startRow = (row / boxSize) * boxSize;
+        int startCol = (col / boxSize) * boxSize;
+
+        for(int r = 0; r < boxSize; r++){
+            for(int c = 0; c < boxSize; c++){
+                if(cells[startRow + r][startCol + c].getValue() == input){
+                    System.out.println("ALREADY IN BOX GROUP");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public int getSize() {
