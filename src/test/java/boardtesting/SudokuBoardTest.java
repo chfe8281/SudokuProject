@@ -17,6 +17,11 @@ public class SudokuBoardTest {
     private final GeneratorFactory generatorFactory = new GeneratorFactory();
     private final int BOARD_SIZE = 9;
     private final int STANDARD_BLANKS = 40;
+    private final int TEST_BOARD_SIZE = 4;
+    private final int TEST_BLANKS = 9;
+
+    private final int MAX_BOARD_SIZE = 16;
+    private final int MAX_BLANKS = 129;
 
     @Test
     public void testBoardSizes(){
@@ -138,6 +143,86 @@ public class SudokuBoardTest {
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
+                int playerVal = playerBoard.getCellValue(i, j);
+                int targetVal = targetBoard.getCellValue(i, j);
+
+                if (playerVal != 0) {
+                    assertEquals(targetVal, playerVal,
+                            "Mismatch at (" + i + "," + j + ")");
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testTargetAndPlayerBoardsNewDimension(){
+        SudokuGenerator generator = generatorFactory.createGenerator(TEST_BOARD_SIZE);
+        int[][] solution = generator.generateSolution();
+        SudokuBoard targetBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(TEST_BOARD_SIZE)
+                .setCells()
+                .withSolution(solution)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("TARGET BOARD\n");
+        targetBoard.printBoard();
+        SudokuBoard playerBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(TEST_BOARD_SIZE)
+                .setCells()
+                .withPuzzle(solution, TEST_BLANKS)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("PLAYER BOARD\n");
+        playerBoard.printBoard();
+
+        for (int i = 0; i < TEST_BOARD_SIZE; i++) {
+            for (int j = 0; j < TEST_BOARD_SIZE; j++) {
+                int playerVal = playerBoard.getCellValue(i, j);
+                int targetVal = targetBoard.getCellValue(i, j);
+
+                if (playerVal != 0) {
+                    assertEquals(targetVal, playerVal,
+                            "Mismatch at (" + i + "," + j + ")");
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testTargetAndPlayerBoardsMaxSize(){
+        SudokuGenerator generator = generatorFactory.createGenerator(MAX_BOARD_SIZE);
+        int[][] solution = generator.generateSolution();
+        SudokuBoard targetBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(MAX_BOARD_SIZE)
+                .setCells()
+                .withSolution(solution)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("TARGET BOARD\n");
+        targetBoard.printBoard();
+        SudokuBoard playerBoard = SudokuBoard
+                .getBuilder(cellFactory, groupsFactory)
+                .setSize(MAX_BOARD_SIZE)
+                .setCells()
+                .withPuzzle(solution, MAX_BLANKS)
+                .createLineGroups()
+                .createBoxGroups()
+                .createBoard()
+                .build();
+        System.out.println("PLAYER BOARD\n");
+        playerBoard.printBoard();
+
+        for (int i = 0; i < MAX_BOARD_SIZE; i++) {
+            for (int j = 0; j < MAX_BOARD_SIZE; j++) {
                 int playerVal = playerBoard.getCellValue(i, j);
                 int targetVal = targetBoard.getCellValue(i, j);
 
