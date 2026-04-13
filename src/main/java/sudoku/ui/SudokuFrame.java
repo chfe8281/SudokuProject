@@ -14,7 +14,7 @@ public class SudokuFrame extends JFrame {
 
     public SudokuFrame(SudokuGame game){
         this.game = game;
-        this.panel = new SudokuPanel(game.getBoard());
+        this.panel = new SudokuPanel(game.getPlayerBoard());
 
         this.add(panel);
         this.pack();
@@ -30,23 +30,23 @@ public class SudokuFrame extends JFrame {
                 selectedCol = e.getX() / cellSize;
                 selectedRow = e.getY() / cellSize;
 
-                if (selectedRow >= 0 && selectedRow < game.getBoard().getSize() &&
-                        selectedCol >= 0 && selectedCol < game.getBoard().getSize()) {
+                if (selectedRow >= 0 && selectedRow < game.getPlayerBoard().getSize() &&
+                        selectedCol >= 0 && selectedCol < game.getPlayerBoard().getSize()) {
 
                     String input = JOptionPane.showInputDialog(
                             SudokuFrame.this,
-                            "Enter number (1-"+game.getBoard().getSize()+"):"
+                            "Enter number (1-"+game.getPlayerBoard().getSize()+"):"
                     );
-
+                    /*
                     try {
                         int val = Integer.parseInt(input);
-                        if(game.getBoard().isValidMove(selectedRow, selectedCol, val)){
-                            game.getBoard().setCellValue(selectedRow, selectedCol, val);
+                        if(game.getPlayerBoard().isValidMove(selectedRow, selectedCol, val)){
+                            game.getPlayerBoard().setCellValue(selectedRow, selectedCol, val);
                             if(game.getTargetBoard().getCellValue(selectedRow, selectedCol) != val){
-                                game.getBoard().setIsWrong(selectedRow, selectedCol, true);
+                                game.getPlayerBoard().setIsWrong(selectedRow, selectedCol, true);
                             }
                             else{
-                                game.getBoard().setIsWrong(selectedRow, selectedCol, false);
+                                game.getPlayerBoard().setIsWrong(selectedRow, selectedCol, false);
                             }
                             panel.repaint();
 
@@ -58,10 +58,15 @@ public class SudokuFrame extends JFrame {
                         }
                     } catch (NumberFormatException ex) {
                         //ignore
-                    }
+                    }*/
                 }
             }
         });
     }
+
+    public void update(){
+        panel.repaint();
+    }
+
 
 }

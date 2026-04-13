@@ -1,16 +1,17 @@
 package sudoku.commands;
 
 import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.IBoard;
 import sudoku.boardgameparts.SudokuBoard;
 
 public class MoveCommand implements ICommand{
-    private SudokuBoard board;
+    private IBoard board;
     private int row;
     private int col;
     private int input;
     private int previousValue;
 
-    public MoveCommand(SudokuBoard board, int row, int col, int input){
+    public MoveCommand(IBoard board, int row, int col, int input){
         this.board = board;
         this.row = row;
         this.col = col;
@@ -20,11 +21,7 @@ public class MoveCommand implements ICommand{
 
     @Override
     public void execute(){
-        if (board.isFixed(row, col)){
-            System.out.println("Cannot change a fixed cell at (" + row + "," + col + ")");
-            return;
-        }
-        board.setCellValue(row, col, input);
+        //game.tryMove(row, col, input);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package sudoku.strategies;
 
 import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.IBoard;
 import sudoku.boardgameparts.SudokuBoard;
 import sudoku.commands.CommandFactory;
 import sudoku.commands.ICommand;
@@ -12,7 +13,7 @@ public class DigitalPlayerStrategy implements IPlayerStrategy{
     public DigitalPlayerStrategy(CommandFactory commandFactory){
         this.commandFactory = commandFactory;
     }
-    public ICommand selectMove(SudokuBoard playerBoard, SudokuBoard targetBoard){
+    public ICommand selectMove(IBoard playerBoard, IBoard targetBoard){
         SudokuBoard solverBoard;
         for(int row = 0; row < playerBoard.getSize(); row++){
             for(int col = 0; col < playerBoard.getSize(); col++){
@@ -43,7 +44,7 @@ public class DigitalPlayerStrategy implements IPlayerStrategy{
         return null;
     }
 
-    private int findValidNumber(SudokuBoard playerBoard, SudokuBoard targetBoard, int row, int col){
+    private int findValidNumber(IBoard playerBoard, IBoard targetBoard, int row, int col){
         for (int num = 1; num <= playerBoard.getSize(); num++) {
             System.out.println("Trying " + num + " at (" + row + "," + col + ")");
             if (playerBoard.isValidMove(row, col, num) && (num == targetBoard.getCellValue(row, col))){

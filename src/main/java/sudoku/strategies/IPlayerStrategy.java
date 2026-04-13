@@ -1,8 +1,10 @@
 package sudoku.strategies;
 
-import sudoku.SudokuBoard;
+import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.IBoard;
+import sudoku.boardgameparts.SudokuBoard;
 import sudoku.commands.ICommand;
 
 public interface IPlayerStrategy {
-    ICommand selectMove(SudokuBoard playerBoard, SudokuBoard targetBoard);
+    ICommand selectMove(IBoard playerBoard, IBoard targetBoard);
 }

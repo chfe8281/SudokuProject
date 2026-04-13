@@ -1,16 +1,17 @@
 package sudoku.ui;
 
 import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.IBoard;
 import sudoku.boardgameparts.SudokuBoard;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SudokuPanel extends JPanel {
-    private SudokuBoard board;
+    private IBoard board;
     private final int cellSize = 50;
 
-    public SudokuPanel(SudokuBoard board) {
+    public SudokuPanel(IBoard board) {
         this.board = board;
         int size = board.getSize();
         this.setPreferredSize(new Dimension(size * cellSize, size * cellSize));

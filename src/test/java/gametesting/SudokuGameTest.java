@@ -60,7 +60,7 @@ public class SudokuGameTest {
         assertTrue(game.gameComplete());
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                int playerVal = game.getBoard().getCellValue(i, j);
+                int playerVal = game.getPlayerBoard().getCellValue(i, j);
                 int targetVal = game.getTargetBoard().getCellValue(i, j);
 
                 assertEquals(targetVal, playerVal,

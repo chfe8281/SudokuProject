@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SudokuBoard {
+public class SudokuBoard implements IBoard{
     private List<IGroup> horizontalLineGroups = new ArrayList<>();
     private List<IGroup> verticalLineGroups = new ArrayList<>();
     private List<IGroup> boxGroups = new ArrayList<>();
