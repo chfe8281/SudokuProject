@@ -1,5 +1,7 @@
 package sudoku.boardgameparts;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public interface IGroup {
@@ -9,7 +11,6 @@ public interface IGroup {
     List<Integer> repeatedValues();
 
     List<Cell> getCells();
-
 
 
 }

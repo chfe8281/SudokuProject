@@ -1,14 +1,9 @@
 package gametesting;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sudoku.GeneratorFactory;
-import sudoku.SudokuBoard;
 import sudoku.SudokuGame;
-import sudoku.SudokuGenerator;
-import sudoku.boardgameparts.CellFactory;
-import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.*;
 import sudoku.commands.CommandFactory;
 import sudoku.strategies.DigitalPlayerStrategy;
 import sudoku.strategies.IPlayerStrategy;
@@ -60,14 +55,13 @@ public class SudokuGameTest {
     @Test
     public void testDigitalPlayerGame(){
         game.playGame();
-        game.getBoard().printBoard();
-        game.getTargetBoard().printBoard();
+        game.displayBoard();
+        game.displayTargetBoard();
         assertTrue(game.gameComplete());
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 int playerVal = game.getBoard().getCellValue(i, j);
                 int targetVal = game.getTargetBoard().getCellValue(i, j);
-
 
                 assertEquals(targetVal, playerVal,
                             "Mismatch at (" + i + "," + j + ")");

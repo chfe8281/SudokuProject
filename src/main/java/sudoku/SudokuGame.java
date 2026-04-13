@@ -1,5 +1,7 @@
 package sudoku;
 
+import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.SudokuBoard;
 import sudoku.commands.ICommand;
 import sudoku.commands.MoveCommand;
 import sudoku.strategies.IPlayerStrategy;
@@ -20,12 +22,20 @@ public class SudokuGame {
         this.playerStrategy = strategy;
     }
 
+    public void displayBoard(){
+        playerBoard.printBoard();
+    }
+
+    public void displayTargetBoard(){
+        targetBoard.printBoard();
+    }
+
     public void playGame(){
         while(!gameComplete()){
             if(!playerMakeMove()){
                 break;
             }
-            playerBoard.printBoard();
+            displayBoard();
         }
     }
     public SudokuBoard getTargetBoard(){return targetBoard;}

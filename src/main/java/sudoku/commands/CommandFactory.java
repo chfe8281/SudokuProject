@@ -1,6 +1,7 @@
 package sudoku.commands;
 
-import sudoku.SudokuBoard;
+import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.SudokuBoard;
 
 public class CommandFactory {
 

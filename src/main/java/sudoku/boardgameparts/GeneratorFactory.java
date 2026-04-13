@@ -1,4 +1,4 @@
-package sudoku;
+package sudoku.boardgameparts;
 
 public class GeneratorFactory {
     private int STANDARD_BOARD_SIZE = 9;

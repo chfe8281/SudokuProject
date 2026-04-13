@@ -1,9 +1,9 @@
 package sudoku.strategies;
 
-import sudoku.SudokuBoard;
+import sudoku.boardgameparts.GroupsFactory;
+import sudoku.boardgameparts.SudokuBoard;
 import sudoku.commands.CommandFactory;
 import sudoku.commands.ICommand;
-import sudoku.commands.MoveCommand;
 
 public class DigitalPlayerStrategy implements IPlayerStrategy{
     // fill first empty cell with valid number with backtracking

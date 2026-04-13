@@ -1,6 +1,5 @@
-package sudoku;
+package sudoku.boardgameparts;
 
-import sudoku.boardgameparts.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +73,10 @@ public class SudokuBoard {
 
     public boolean isFixed(int row, int col){return cells[row][col].isFixed();}
 
+    public boolean isWrong(int row, int col){return cells[row][col].isWrong();}
+
+    public void setIsWrong(int row, int col, boolean wrong){cells[row][col].setWrong(wrong);}
+
     public boolean isValidMove(int row, int col, int input){
         if (row < 0 || row >= boardSize || col < 0 || col >= boardSize || input < 1 || input > boardSize) {
             System.out.println("OUT OUT BOUNDS");
@@ -107,6 +110,8 @@ public class SudokuBoard {
     public int getSize() {
         return boardSize;
     }
+
+    public int getBoxSize(){return boxSize;}
 
     public List<IGroup> getHorizontalLineGroups(){
         return new ArrayList<>(this.horizontalLineGroups);
@@ -153,20 +158,20 @@ public class SudokuBoard {
         public SudokuBoardBuilder createLineGroups(){
             this.horizontalLineGroups = groupsFactory.createGroups("line", this.boardSize, this.boardSize);
             this.verticalLineGroups = groupsFactory.createGroups("line", this.boardSize, this.boardSize);
-            /*for(int i = 0; i < boardSize; i++){
-                List<Cell> verticalLineGroup = new ArrayList<>();
+                /*for(int i = 0; i < boardSize; i++){
+                    List<Cell> verticalLineGroup = new ArrayList<>();
+                    for(int j = 0; j < boardSize; j++){
+                        verticalLineGroup.add(cells[i][j]);
+                    }
+                    this.verticalLineGroups.get(i).setCells(verticalLineGroup);
+                }
                 for(int j = 0; j < boardSize; j++){
-                    verticalLineGroup.add(cells[i][j]);
-                }
-                this.verticalLineGroups.get(i).setCells(verticalLineGroup);
-            }
-            for(int j = 0; j < boardSize; j++){
-                List<Cell> horizontalLineGroup = new ArrayList<>();
-                for(int i = 0; i < boardSize; i++){
-                    horizontalLineGroup.add(cells[i][j]);
-                }
-                this.horizontalLineGroups.get(j).setCells(horizontalLineGroup);
-            }*/
+                    List<Cell> horizontalLineGroup = new ArrayList<>();
+                    for(int i = 0; i < boardSize; i++){
+                        horizontalLineGroup.add(cells[i][j]);
+                    }
+                    this.horizontalLineGroups.get(j).setCells(horizontalLineGroup);
+                }*/
             setVerticalLineGroupCells();
             setHorizontalLineGroupCells();
 

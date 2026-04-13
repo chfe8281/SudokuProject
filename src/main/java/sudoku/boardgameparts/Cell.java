@@ -3,6 +3,7 @@ package sudoku.boardgameparts;
 public class Cell {
     private int value;
     private boolean isFixed;
+    private boolean isWrong = false;
     private int rowPosition;
     private int columnPosition;
 
@@ -14,6 +15,12 @@ public class Cell {
 
     public void setFixed(boolean fixed){
         this.isFixed = fixed;
+    }
+
+    public boolean isWrong(){return isWrong;}
+
+    public void setWrong(boolean wrong){
+        this.isWrong = wrong;
     }
 
     public boolean isFixed(){return isFixed;}
