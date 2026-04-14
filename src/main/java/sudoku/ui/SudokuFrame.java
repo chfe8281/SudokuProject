@@ -1,5 +1,6 @@
 package sudoku.ui;
 
+import sudoku.SudokuController;
 import sudoku.SudokuGame;
 
 import javax.swing.*;
@@ -9,14 +10,13 @@ import java.awt.event.MouseEvent;
 public class SudokuFrame extends JFrame {
     private SudokuGame game;
     private SudokuPanel panel;
-    private int selectedRow = -1;
-    private int selectedCol = -1;
-
+    private SudokuController controller;
     public SudokuFrame(SudokuGame game){
         this.game = game;
         this.panel = new SudokuPanel(game.getPlayerBoard());
 
         this.add(panel);
+        this.game.attach(this);
         this.pack();
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -26,39 +26,13 @@ public class SudokuFrame extends JFrame {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int cellSize = 50; // must match SudokuPanel
-                selectedCol = e.getX() / cellSize;
-                selectedRow = e.getY() / cellSize;
+                int cellSize = 50;
 
-                if (selectedRow >= 0 && selectedRow < game.getPlayerBoard().getSize() &&
-                        selectedCol >= 0 && selectedCol < game.getPlayerBoard().getSize()) {
+                int col = e.getX() / cellSize;
+                int row = e.getY() / cellSize;
 
-                    String input = JOptionPane.showInputDialog(
-                            SudokuFrame.this,
-                            "Enter number (1-"+game.getPlayerBoard().getSize()+"):"
-                    );
-                    /*
-                    try {
-                        int val = Integer.parseInt(input);
-                        if(game.getPlayerBoard().isValidMove(selectedRow, selectedCol, val)){
-                            game.getPlayerBoard().setCellValue(selectedRow, selectedCol, val);
-                            if(game.getTargetBoard().getCellValue(selectedRow, selectedCol) != val){
-                                game.getPlayerBoard().setIsWrong(selectedRow, selectedCol, true);
-                            }
-                            else{
-                                game.getPlayerBoard().setIsWrong(selectedRow, selectedCol, false);
-                            }
-                            panel.repaint();
-
-                            if(game.gameComplete()){
-                                JOptionPane.showMessageDialog(SudokuFrame.this, "You completed the puzzle!");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(SudokuFrame.this, "Invalid move!");
-                        }
-                    } catch (NumberFormatException ex) {
-                        //ignore
-                    }*/
+                if (controller != null) {
+                    controller.handleCellClick(row, col); // ✅ delegate
                 }
             }
         });
@@ -68,5 +42,15 @@ public class SudokuFrame extends JFrame {
         panel.repaint();
     }
 
+    public void setController(SudokuController controller){
+        this.controller = controller;
+    }
+
+    public void showGameOver() {
+        JOptionPane.showMessageDialog(
+                this,
+                "You completed the puzzle!"
+        );
+    }
 
 }

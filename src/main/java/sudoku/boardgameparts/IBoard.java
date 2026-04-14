@@ -20,4 +20,6 @@ public interface IBoard {
     public int getSize();
 
     public boolean isWrong(int row, int col);
+
+    public boolean equals(Object obj);
 }

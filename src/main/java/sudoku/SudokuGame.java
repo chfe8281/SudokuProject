@@ -7,6 +7,7 @@ import sudoku.commands.MoveCommand;
 import sudoku.strategies.IPlayerStrategy;
 import sudoku.ui.SudokuFrame;
 
+import javax.swing.*;
 import java.util.Stack;
 
 public class SudokuGame implements IBoardGame {
@@ -36,6 +37,11 @@ public class SudokuGame implements IBoardGame {
             if(!playerMakeMove()){
                 break;
             }
+            try {
+                Thread.sleep(500); // 👈 critical for visualization
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             displayBoard();
         }
     }
@@ -46,12 +52,12 @@ public class SudokuGame implements IBoardGame {
 
     public boolean playerMakeMove() {
         ICommand command = playerStrategy.selectMove(playerBoard, targetBoard);
-        if (command == null) {
-            System.out.println("No moves available, stopping game.");
-            return false;
-        }
+        if (command == null) return false;
         command.execute();
         notifyFrame();
+        if (gameComplete()) {
+            notifyGameEnd(); // or however you're signaling observers
+        }
         return true;
     }
 
@@ -69,13 +75,21 @@ public class SudokuGame implements IBoardGame {
     }
     public void notifyFrame(){
         if(frame != null){
-            frame.update();
+            SwingUtilities.invokeLater(() -> frame.update());
+        }
+    }
+
+    public void notifyGameEnd(){
+        if(frame != null){
+            frame.showGameOver();
         }
     }
     // Switch player strategy at runtime
     public void setPlayerStrategy(IPlayerStrategy strategy) {
         this.playerStrategy = strategy;
     }
+
+    public IPlayerStrategy getPlayerStrategy(){return this.playerStrategy;}
 
     public boolean gameComplete(){
         return playerBoard.isFilled() && playerBoard.equals(targetBoard);

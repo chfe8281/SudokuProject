@@ -6,7 +6,7 @@ import sudoku.boardgameparts.SudokuBoard;
 
 public class CommandFactory {
 
-    public ICommand createMoveCommand(IBoard board, int row, int col, int input){
-        return new MoveCommand(board, row, col, input);
+    public ICommand createMoveCommand(IBoard board, IBoard targetBoard, int row, int col, int input){
+        return new MoveCommand(board, targetBoard, row, col, input);
     }
 }

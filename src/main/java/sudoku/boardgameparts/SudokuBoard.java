@@ -33,11 +33,18 @@ public class SudokuBoard implements IBoard{
         return true;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) return true; // same reference
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-    public boolean equals(SudokuBoard comparedBoard){
-        for(int i = 0; i < boardSize; i++){
-            for(int j = 0; j < boardSize; j++){
-                if(cells[i][j].getValue() != comparedBoard.getCellValue(i, j)){
+        SudokuBoard comparedBoard = (SudokuBoard) obj;
+
+        if (this.boardSize != comparedBoard.boardSize) return false;
+
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                if (cells[i][j].getValue() != comparedBoard.getCellValue(i, j)) {
                     return false;
                 }
             }

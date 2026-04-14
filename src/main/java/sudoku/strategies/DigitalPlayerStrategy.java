@@ -20,7 +20,7 @@ public class DigitalPlayerStrategy implements IPlayerStrategy{
                 if (playerBoard.getCellValue(row, col) == 0) { // empty
                     int number = findValidNumber(playerBoard, targetBoard, row, col);
                     if (number != 0) {
-                        ICommand move = commandFactory.createMoveCommand(playerBoard, row, col, number);
+                        ICommand move = commandFactory.createMoveCommand(playerBoard, targetBoard, row, col, number);
                         /*move.execute();
                         solverBoard = playerBoard;
                         if(canSolve(solverBoard)){

@@ -19,7 +19,12 @@ public class HumanPlayerStrategy implements IPlayerStrategy{
         this.moveReady = false;
     }
 
-
+    public void setMove(int row, int col, int number) {
+        this.selectedRow = row;
+        this.selectedCol = col;
+        this.selectedNumber = number;
+        this.moveReady = true;
+    }
 
     @Override
     public ICommand selectMove(IBoard playerBoard, IBoard targetBoard) {
@@ -27,7 +32,7 @@ public class HumanPlayerStrategy implements IPlayerStrategy{
             return null;
         }
 
-        ICommand move = commandFactory.createMoveCommand(playerBoard, selectedRow, selectedCol, selectedNumber);
+        ICommand move = commandFactory.createMoveCommand(playerBoard, targetBoard, selectedRow, selectedCol, selectedNumber);
         moveReady = false;
         lastMove = move;
 

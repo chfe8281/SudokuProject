@@ -52,8 +52,10 @@ public class Main {
         gameCreation();
         SwingUtilities.invokeLater(() -> {
             SudokuFrame frame = new SudokuFrame(game);
+            SudokuController controller = new SudokuController(game, frame);
+            frame.setController(controller);
             frame.setVisible(true);
-            game.playGame();
+            new Thread(() -> game.playGame()).start();
         });
     }
 }
