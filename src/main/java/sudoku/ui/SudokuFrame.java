@@ -14,25 +14,20 @@ public class SudokuFrame extends JFrame {
     public SudokuFrame(SudokuGame game){
         this.game = game;
         this.panel = new SudokuPanel(game.getPlayerBoard());
-
         this.add(panel);
         this.game.attach(this);
         this.pack();
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Sudoku Game");
         this.setLocationRelativeTo(null);
-
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int cellSize = 50;
-
                 int col = e.getX() / cellSize;
                 int row = e.getY() / cellSize;
-
                 if (controller != null) {
-                    controller.handleCellClick(row, col); // ✅ delegate
+                    controller.handleCellClick(row, col);
                 }
             }
         });

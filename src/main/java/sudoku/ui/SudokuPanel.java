@@ -19,7 +19,7 @@ public class SudokuPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // just do standard paint component
+        super.paintComponent(g);
 
         int size = board.getSize();
         int boxSize = board.getBoxSize();
@@ -28,36 +28,16 @@ public class SudokuPanel extends JPanel {
             for (int col = 0; col < size; col++) {
                 int x = col * cellSize;
                 int y = row * cellSize;
-
-                // Fill fixed cells with light gray
-                if (board.isFixed(row, col)) {
-                    g.setColor(new Color(220, 220, 220));
-                    g.fillRect(x, y, cellSize, cellSize);
-                }
-
-                // Draw cell border
+                paintFixedCells(row, col, g, x, y);
                 g.setColor(Color.BLACK);
                 g.drawRect(x, y, cellSize, cellSize);
-
-                // Draw number
-                int value = board.getCellValue(row, col);
-                if (value != 0) {
-                    if(board.isWrong(row, col)){
-                        g.setColor(Color.RED);
-                    }
-                    else{
-                        g.setColor(Color.BLACK);
-                    }
-                    g.setFont(new Font("Arial", Font.BOLD, 20));
-                    FontMetrics fm = g.getFontMetrics();
-                    int textX = x + (cellSize - fm.stringWidth(String.valueOf(value))) / 2;
-                    int textY = y + ((cellSize - fm.getHeight()) / 2) + fm.getAscent();
-                    g.drawString(String.valueOf(value), textX, textY);
-                }
+                paintValue(row, col, g, x, y);
             }
         }
+        drawBoxLines(g, size, boxSize);
+    }
 
-        // Draw thicker box lines
+    private void drawBoxLines(Graphics g, int size, int boxSize){
         g.setColor(Color.BLACK);
         for (int i = 0; i <= size; i++) {
             int thickness = (i % boxSize == 0) ? 3 : 1;
@@ -67,6 +47,30 @@ public class SudokuPanel extends JPanel {
             g.drawLine(0, i * cellSize, size * cellSize, i * cellSize);
             // Vertical line
             g.drawLine(i * cellSize, 0, i * cellSize, size * cellSize);
+        }
+    }
+
+    private void paintValue(int row, int col, Graphics g, int x, int y){
+        int value = board.getCellValue(row, col);
+        if (value != 0) {
+            if(board.isWrong(row, col)){
+                g.setColor(Color.RED);
+            }
+            else{
+                g.setColor(Color.BLACK);
+            }
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            FontMetrics fm = g.getFontMetrics();
+            int textX = x + (cellSize - fm.stringWidth(String.valueOf(value))) / 2;
+            int textY = y + ((cellSize - fm.getHeight()) / 2) + fm.getAscent();
+            g.drawString(String.valueOf(value), textX, textY);
+        }
+    }
+
+    private void paintFixedCells(int row, int col, Graphics g, int x, int y){
+        if (board.isFixed(row, col)) {
+            g.setColor(new Color(220, 220, 220));
+            g.fillRect(x, y, cellSize, cellSize);
         }
     }
 }
