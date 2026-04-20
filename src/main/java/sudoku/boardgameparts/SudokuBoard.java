@@ -118,6 +118,17 @@ public class SudokuBoard implements IBoard{
         return boardSize;
     }
 
+    public int countEmptyCells(){
+        int count = 0;
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(!cells[i][j].isFilled()){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
     public int getBoxSize(){return boxSize;}
 
     public List<IGroup> getHorizontalLineGroups(){

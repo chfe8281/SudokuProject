@@ -69,4 +69,18 @@ public class SudokuGameTest {
             }
         }
     }
+
+    @Test
+    void testGameMakesProgress() {
+
+        int initialEmpty = game.getPlayerBoard().countEmptyCells();
+
+        for (int i = 0; i < 5; i++) {
+            game.playSingleStep();
+        }
+
+        int afterEmpty = game.getPlayerBoard().countEmptyCells();
+
+        assertTrue(afterEmpty < initialEmpty);
+    }
 }

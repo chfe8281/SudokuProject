@@ -11,7 +11,7 @@ public interface IBoard {
     public boolean isFixed(int row, int col);
 
     public boolean isValidMove(int row, int col, int input);
-
+    public int countEmptyCells();
     public void setCellValue(int row, int col, int input);
 
     public int getCellValue(int row, int col);

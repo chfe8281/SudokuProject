@@ -13,6 +13,8 @@ public class Cell {
         this.columnPosition = column;
     }
 
+    public boolean isFilled(){return value!=0;}
+
     public void setFixed(boolean fixed){
         this.isFixed = fixed;
     }

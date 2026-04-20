@@ -38,7 +38,7 @@ public class SudokuGame implements IBoardGame {
                 break;
             }
             try {
-                Thread.sleep(500); // 👈 critical for visualization
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -66,6 +66,15 @@ public class SudokuGame implements IBoardGame {
         notifyFrame();
     }
 
+    public void playSingleStep(){
+        playerMakeMove();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        displayBoard();
+    }
     public void attach(SudokuFrame frame){
         this.frame = frame;
     }
