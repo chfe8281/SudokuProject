@@ -1,14 +1,11 @@
-package sudoku;
+package sudoku.ui;
 
-import sudoku.commands.CommandFactory;
-import sudoku.commands.ICommand;
-import sudoku.commands.MoveCommand;
+import sudoku.game.IBoardGame;
 import sudoku.strategies.HumanPlayerStrategy;
-import sudoku.ui.SudokuFrame;
 
 import javax.swing.*;
 
-public class SudokuController implements IController{
+public class SudokuController implements IController {
 
     private IBoardGame game;
     private SudokuFrame boardFrame;
@@ -28,18 +25,19 @@ public class SudokuController implements IController{
 
         try {
             int val = Integer.parseInt(input);
-
-            if (game.getPlayerStrategy() instanceof HumanPlayerStrategy human) {
-                human.setMove(row, col, val);
-            }
-
-            game.playerMakeMove();
-
-
+            applyMove(row, col, val);
         } catch (NumberFormatException e) {
             // ignore
         }
     }
+
+    public void applyMove(int row, int col, int val) {
+        if (game.getPlayerStrategy() instanceof HumanPlayerStrategy human) {
+            human.setMove(row, col, val);
+        }
+        game.playerMakeMove();
+    }
+
 
 
 

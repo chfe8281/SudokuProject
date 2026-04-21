@@ -13,25 +13,17 @@ public class BoxGroup implements IGroup {
         cells = new Cell[boxDimension][boxDimension];
     }
 
-    public List<Integer> unusedValues(){
-        return List.of();
-    }
 
-    public List<Integer> repeatedValues(){
-        return List.of();
-    }
+    public void setCells(List<Cell> cells){
+        int size = (int) Math.sqrt(boxSize);
 
+        for (int index = 0; index < cells.size(); index++) {
+            int row = index / size;
+            int col = index % size;
 
-    public void setCells(Cell[][] cells){
-        for(int i = 0; i < Math.sqrt(boxSize); i++) {
-            for (int j = 0; j < Math.sqrt(boxSize); j++) {
-                this.cells[i][j] = cells[i][j];
-            }
+            this.cells[row][col] = cells.get(index);
         }
-
     }
-
-    public void setCells(List<Cell> cells){}
 
 
     public List<Cell> getCells(){

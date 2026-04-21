@@ -2,8 +2,6 @@ package sudoku.boardgameparts;
 
 public class CellFactory {
 
-    public Cell createCell(int row, int column){ return new Cell(row, column); }
-
     public Cell[][] createCells(int width, int height){
         Cell[][] newCells = new Cell[width][height];
         for(int i = 1; i < width+1; i++){

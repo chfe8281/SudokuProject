@@ -38,11 +38,4 @@ public class MoveCommand implements ICommand{
         }
     }
 
-    @Override
-    public void undo(){
-        if(!board.isFixed(row, col)){
-            board.setCellValue(row, col, previousValue);
-        }
-    }
-
 }

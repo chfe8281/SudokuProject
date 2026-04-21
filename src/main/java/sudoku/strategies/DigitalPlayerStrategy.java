@@ -55,22 +55,4 @@ public class DigitalPlayerStrategy implements IPlayerStrategy{
         }
         return 0;
     }
-
-    private boolean canSolve(SudokuBoard board){
-        for(int row = 0; row < board.getSize(); row++){
-            for(int col = 0; col < board.getSize(); col++){
-                if(!board.isFixed(row, col) && board.getCellValue(row, col) == 0){
-                    for(int num = 1; num <= board.getSize(); num++){
-                        if(board.isValidMove(row, col, num)){
-                            board.setCellValue(row, col, num);
-                            if(canSolve(board)) return true;
-                            board.setCellValue(row, col, 0); // undo
-                        }
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

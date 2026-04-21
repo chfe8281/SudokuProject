@@ -1,5 +1,7 @@
 package sudoku.boardgameparts;
 
+import java.util.List;
+
 public interface IBoard {
 
     public void printBoard();
@@ -7,7 +9,7 @@ public interface IBoard {
     public int getBoxSize();
 
     public boolean isFilled();
-
+    public List<Integer> getFirstNotFilled();
     public boolean isFixed(int row, int col);
 
     public boolean isValidMove(int row, int col, int input);

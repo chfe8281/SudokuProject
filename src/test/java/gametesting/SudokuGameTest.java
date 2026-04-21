@@ -2,11 +2,9 @@ package gametesting;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import sudoku.SudokuGame;
+import sudoku.game.SudokuGame;
 import sudoku.boardgameparts.*;
 import sudoku.commands.CommandFactory;
-import sudoku.strategies.DigitalPlayerStrategy;
-import sudoku.strategies.IPlayerStrategy;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,33 +21,7 @@ public class SudokuGameTest {
 
     @BeforeEach
     public void gameCreation(){
-        IPlayerStrategy strategy = new DigitalPlayerStrategy(commandFactory);
-        SudokuGenerator generator = generatorFactory.createStandardGenerator();
-        int[][] solution = generator.generateSolution();
-        SudokuBoard targetBoard = SudokuBoard
-                .getBuilder(cellFactory, groupsFactory)
-                .setSize(BOARD_SIZE)
-                .setCells()
-                .withSolution(solution)
-                .createLineGroups()
-                .createBoxGroups()
-                .createBoard()
-                .build();
-        targetBoard.printBoard();
-        SudokuBoard playerBoard = SudokuBoard
-                .getBuilder(cellFactory, groupsFactory)
-                .setSize(9)
-                .setCells()
-                .withPuzzle(solution, STANDARD_BLANKS)
-                .createLineGroups()
-                .createBoxGroups()
-                .createBoard()
-                .build();
-        playerBoard.printBoard();
-        game = new SudokuGame(targetBoard, playerBoard, strategy);
-
-
-
+        game = SudokuGame.createDigitalGame();
     }
 
     @Test

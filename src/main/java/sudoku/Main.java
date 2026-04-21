@@ -1,10 +1,10 @@
 package sudoku;
-import sudoku.SudokuGame;
 import sudoku.boardgameparts.*;
 import sudoku.commands.CommandFactory;
+import sudoku.game.SudokuGame;
 import sudoku.strategies.DigitalPlayerStrategy;
-import sudoku.strategies.HumanPlayerStrategy;
 import sudoku.strategies.IPlayerStrategy;
+import sudoku.ui.SudokuController;
 import sudoku.ui.SudokuFrame;
 
 import javax.swing.*;

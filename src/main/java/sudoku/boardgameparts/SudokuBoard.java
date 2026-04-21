@@ -33,6 +33,17 @@ public class SudokuBoard implements IBoard{
         return true;
     }
 
+    public List<Integer> getFirstNotFilled(){
+        for(int i = 0; i < boardSize; i++){
+            for(int j = 0; j < boardSize; j++){
+                if(!cells[i][j].isFilled()){
+                    return List.of(i, j);
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
     public boolean equals(Object obj){
         if (this == obj) return true; // same reference
@@ -176,20 +187,6 @@ public class SudokuBoard implements IBoard{
         public SudokuBoardBuilder createLineGroups(){
             this.horizontalLineGroups = groupsFactory.createGroups("line", this.boardSize, this.boardSize);
             this.verticalLineGroups = groupsFactory.createGroups("line", this.boardSize, this.boardSize);
-                /*for(int i = 0; i < boardSize; i++){
-                    List<Cell> verticalLineGroup = new ArrayList<>();
-                    for(int j = 0; j < boardSize; j++){
-                        verticalLineGroup.add(cells[i][j]);
-                    }
-                    this.verticalLineGroups.get(i).setCells(verticalLineGroup);
-                }
-                for(int j = 0; j < boardSize; j++){
-                    List<Cell> horizontalLineGroup = new ArrayList<>();
-                    for(int i = 0; i < boardSize; i++){
-                        horizontalLineGroup.add(cells[i][j]);
-                    }
-                    this.horizontalLineGroups.get(j).setCells(horizontalLineGroup);
-                }*/
             setVerticalLineGroupCells();
             setHorizontalLineGroupCells();
 
@@ -220,19 +217,26 @@ public class SudokuBoard implements IBoard{
 
             int boxSize = (int) Math.sqrt(this.boardSize);
             int boxIndex = 0;
-            for(int boxRow = 0; boxRow < boxSize; boxRow++){
-                for(int boxCol = 0; boxCol < boxSize; boxCol++){
-                    Cell[][] box = new Cell[boxSize][boxSize];
-                    for(int i = 0; i < boxSize; i++){
-                        for(int j = 0; j < boxSize; j++){
-                            int boardRow = boxRow*boxSize + i;
-                            int boardCol = boxCol*boxSize + j;
-                            box[i][j] = cells[boardRow][boardCol];
+
+            for (int boxRow = 0; boxRow < boxSize; boxRow++) {
+                for (int boxCol = 0; boxCol < boxSize; boxCol++) {
+
+                    List<Cell> boxCells = new ArrayList<>();
+
+                    for (int i = 0; i < boxSize; i++) {
+                        for (int j = 0; j < boxSize; j++) {
+
+                            int boardRow = boxRow * boxSize + i;
+                            int boardCol = boxCol * boxSize + j;
+
+                            boxCells.add(cells[boardRow][boardCol]);
                         }
                     }
-                    if(this.boxGroups.get(boxIndex) instanceof BoxGroup b){
-                        b.setCells(box);
+
+                    if (this.boxGroups.get(boxIndex) instanceof BoxGroup b) {
+                        b.setCells(boxCells);
                     }
+
                     boxIndex++;
                 }
             }

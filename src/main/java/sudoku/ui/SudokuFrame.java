@@ -1,7 +1,6 @@
 package sudoku.ui;
 
-import sudoku.SudokuController;
-import sudoku.SudokuGame;
+import sudoku.game.SudokuGame;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
