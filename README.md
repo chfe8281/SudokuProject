@@ -5,7 +5,7 @@ To play this game just run the pubic static main method in Main.java according t
 ## Patterns:
 * Factory Pattern: Create cell objects to inject into groups and group objects to inject into the board.
 * Builder Pattern: To build the board according to size and/or group-type specifications. In SudokuBoard class.
-* Command Pattern: To make the player's move with ability to execute and undo.
+* Command Pattern: To make the player's move with ability to execute.
 * Strategy Pattern: To allow the game object to either look at a horizontal line group, vertical line group, or box group. To be implemented in the SudokuGame class.
 * MVC Pattern: Connects the UI Viewer SudokuFrame with the SudokuController that tracks moves performed on the SudokuGame.
 
